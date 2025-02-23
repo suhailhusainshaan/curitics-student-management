@@ -5,6 +5,7 @@ namespace App\Http\Controllers\student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Enrollment;
+use App\Models\Student;
 use App\Models\Course;
 use Auth;
 
@@ -16,17 +17,11 @@ class EnrollmentController extends Controller
     public function index()
     {
         $student_id = Auth::user()->student->id;
-        $enrollments = Enrollment::with('student.user')->where('student_id', $student_id)->paginate(10);
+        $enrollments = Student::with('enrollment')->where('id', $student_id)->first();
+        //HasMany Relationship
+        $enrollments = $enrollments->enrollment;
         
         return view('student.enrollment.index', compact('enrollments'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -50,7 +45,6 @@ class EnrollmentController extends Controller
             'message' => $message,
         ]);
         
-        //return redirect()->route('student.enrollment')->with('success','Enrollment created successfully');
     }
 
     /**
@@ -62,22 +56,6 @@ class EnrollmentController extends Controller
         $enrollment = Enrollment::with('student.user')->where('id', $id)->where('student_id', $student_id)->first();
         
         return view('student.enrollment.show', compact('enrollment'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**

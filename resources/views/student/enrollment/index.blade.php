@@ -71,7 +71,6 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
-                {{ $enrollments->links('pagination::bootstrap-4') }}
               </div>
             </div>
           </div>
