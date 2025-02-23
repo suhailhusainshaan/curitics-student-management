@@ -21,7 +21,7 @@ class AdminUser
             return redirect()->route('/');
         }
         if (auth()->user()->role_id != config('constants.ADMIN_ROLE_ID')) {
-            return redirect()->route('/');
+            return redirect()->route('student.dashboard');
         }
         $user = Auth::user();
         $user_name = $user->name;
