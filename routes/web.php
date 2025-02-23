@@ -13,9 +13,7 @@ Route::get('/', function () {
     return Redirect::route('login');
 })->name('/');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [StudentController::class, 'index'])->middleware(['auth', 'student'])->name('dashboard');
 
 //Admin Routes
 Route::middleware(['auth', 'admin'])->group(function () {
