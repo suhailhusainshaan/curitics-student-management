@@ -99,7 +99,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: "{{url('/admin-course-delete')}}/" + id,
+                    url: "{{url('/admin/course/delete')}}/" + id,
                     data: {_token: CSRF_TOKEN},
                     dataType: 'JSON',
                     success: function (results) {
