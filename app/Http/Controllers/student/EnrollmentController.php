@@ -34,12 +34,22 @@ class EnrollmentController extends Controller
         if($course == null){
             return redirect()->back()->with('error','Course not found');
         }
+        $enrollment = Enrollment::where('student_id', $student_id)->where('course_id', $id)->first();
+        if($enrollment){
+            $success = false;
+            $message = "Student is already enrolled in this course";
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
+            //return redirect()->route('student.enrollments')->with('error','Student is already enrolled in this course');
+        }
         $enrollment = new Enrollment();
         $enrollment->student_id = $student_id;
         $enrollment->course_id = $id;
         $enrollment->save();
         $success = true;
-        $message = "Enrollment deleted successfully";
+        $message = "Enrollment created successfully";
         return response()->json([
             'success' => $success,
             'message' => $message,

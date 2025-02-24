@@ -112,7 +112,7 @@
                         } else {
                           Swal.fire({
                             icon: "error",
-                            title: "Something went wrong",
+                            title: "Student is already enrolled in this course",
                             showConfirmButton: false,
                             timer: 1500
                           });

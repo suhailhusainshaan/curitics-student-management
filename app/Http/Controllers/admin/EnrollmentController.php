@@ -33,7 +33,7 @@ class EnrollmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(string $id)
+    public function store(Request $request)
     {
         $student = Student::where('id',$request->student_id)->first();
         $course = Course::where('id',$request->course_id)->first();
@@ -42,6 +42,10 @@ class EnrollmentController extends Controller
         }
         if($course == null){
             return redirect()->back()->with('error','Course not found');
+        }
+        $enrollment = Enrollment::where('student_id', $request->student_id)->where('course_id', $request->course_id)->first();
+        if($enrollment){
+            return redirect()->route('admin.enrollments')->with('error','Student is already enrolled in this course');
         }
         $enrollment = new Enrollment();
         $enrollment->student_id = $request->student_id;

@@ -23,6 +23,12 @@
         <div class="app-content">
           <div class="container-fluid">
             <div class="row">
+            @if ($error = Session::get('error'))
+            <div class="alert alert-danger alert-dismissible">
+                <h5> Error!</h5>
+                {{ $error }}<br/>
+            </div>
+            @endif
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-dismissible">
                 <h5> Success!</h5>
